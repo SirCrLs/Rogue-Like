@@ -257,6 +257,9 @@ public class Map {
         return -1; // No se encuentra ninguna celda adyacente válida
     }
 
+    /**
+     * Crea 1 o 2 enemigos en cada una de las habitaciones creadas del mapa
+     */
     private void spawnEnemies() {
         for (Room room : rooms) {
             int enemyCount = 1 + (int)(Math.random() * 2); // 1 o 2 enemigos por habitación

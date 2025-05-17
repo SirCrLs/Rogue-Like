@@ -28,10 +28,19 @@ public class UI {
         fuente10 = new Font("Consolas", Font.PLAIN, 15);
     }
 
+    /**
+     * @param text texto String que se guardara como clase Mensaje
+     */
     public void addMessage(String text) {
         messages.add(new Message(text));
     }
 
+    /**
+     * @param g2 El graficador que ilustra el UI
+     * @param player Clase jugador
+     * @apiNote Ilustra en la pantalla las estadisticas del jugador, acciones y eventos realizados
+     * y algunos datos extras
+     */
     public void draw(Graphics2D g2, Player player) {
         g2.setFont(fuente10);
         g2.setColor(Color.WHITE);

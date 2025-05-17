@@ -48,6 +48,9 @@ public class Enemy extends Entity {
         this.reward = 2 + (2*(lvl-1)); //Experiencia
     }
 
+    /**
+     * @return retorna verdadero o falso si la entidad tiene menos que 0 en hp
+     */
     public boolean isDead() {
         if (this.hp <= 0) {
             return true;

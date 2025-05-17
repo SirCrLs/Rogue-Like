@@ -67,6 +67,11 @@ public class Player extends Entity {
         return new Rectangle(hitBox.x, hitBox.y, hitBox.width, hitBox.height);
     }
 
+    /**
+     * @param amount Cantidad de experiencia que el jugador recibe
+     * @apiNote si la cantidad de experiencia actual excede la experiencia
+     * necesaria para subir de nivel, el jugador sube de nivel; levelUp()
+     */
     public void gainExperience(int amount) {
         exp += amount;
 
@@ -76,6 +81,9 @@ public class Player extends Entity {
         }
     }
 
+    /**
+     * El jugador aumenta en 1 el nivel y todas sus estadisticas aumentan
+     */
     private void levelUp() {
         level++;
         expNextLevel += 10 * level;
@@ -92,7 +100,8 @@ public class Player extends Entity {
 
 
     /**
-     * Capta cada accion que realiza el jugador para cambiar su posicion
+     * Capta cada accion que realiza el jugador para cambiar su posicion ademas
+     * de evaluar las colisiones del mapa
      */
     public void update() {
         if (gp.gameState != statePlay) return;
