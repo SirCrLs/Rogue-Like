@@ -9,6 +9,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
+import static main.GamePanel.stateCombat;
 import static main.GamePanel.statePlay;
 
 public class Player extends Entity {
@@ -37,7 +38,7 @@ public class Player extends Entity {
         level = 1;
         exp = 0;
         expNextLevel = 10;
-        damage = 5;
+        damage = 2;
         armor = 0;
         hpMax = 10;
         hp = hpMax;
@@ -134,6 +135,16 @@ public class Player extends Entity {
             }
 
             gp.cChecker.checkTile(this);
+
+            for(Enemy e: gp.gameMap.enemies){
+                if (gp.gameState == statePlay && !e.isDead() && gp.currentEnemy == null) {
+                    if (e.hitBox.intersects(gp.player.hitBox)) {
+                        gp.currentEnemy = e;
+                        gp.gameState = stateCombat;
+                        gp.combatTimer = 0;
+                    }
+                }
+            }
 
 
             if (!collisionOn) {

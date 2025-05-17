@@ -22,9 +22,15 @@ public class GamePanel extends JPanel implements Runnable {
 
     public static final int statePlay = 0;
     public static final int stateCombat = 1;
-    public boolean readyForCombat = true;
+    public static final int playerCombatTurn = 0;
+    public static final int enemyCombatTurn = 1;
+    public static final int combatDelay= 2;
+    public int previousTurn;
+    public int combatTurn = playerCombatTurn;
     public int combatTimer= 60;
-    public int combatDelay= 0;
+
+    private int messageDelay = 30;
+    private int messageTimer = 0;
     public Enemy currentEnemy;
 
 
@@ -104,34 +110,54 @@ public class GamePanel extends JPanel implements Runnable {
         if (gameState == stateCombat && currentEnemy != null) {
             combatTimer++;
 
-            if (combatTimer >= combatDelay) {
-                combatTimer = 0;
+            switch (combatTurn) {
+                case playerCombatTurn:
+                    if (combatTimer >= combatDelay) {
+                        previousTurn = playerCombatTurn;
+                        // Turno del jugador
+                        currentEnemy.hp -= Math.max(1, player.damage);
+                        ui.addMessage("Atacaste al enemigo!");
+                        combatTimer = 0;
+                        combatTurn = combatDelay;
+                        messageTimer = 0;
+                    }
+                    break;
 
-                // Turno del jugador
-                currentEnemy.hp -= Math.max(1, player.damage);
-                ui.addMessage("¡Atacaste al enemigo!");
+                case combatDelay:
+                    messageTimer++;
+                    if (messageTimer >= messageDelay) {
+                        if (currentEnemy.hp <= 0) {
+                            ui.addMessage("Enemigo derrotado!");
+                            player.gainExperience(currentEnemy.reward);
+                            gameMap.enemies.remove(currentEnemy);
+                            currentEnemy = null;
+                            gameState = statePlay;
+                        } else if(previousTurn == playerCombatTurn) {
+                            combatTurn = enemyCombatTurn;
+                        } else{
+                            combatTurn = playerCombatTurn;
+                        }
+                    }
+                    break;
 
-                if (currentEnemy.hp <= 0) {
-                    ui.addMessage("¡Enemigo derrotado!");
-                    player.gainExperience(currentEnemy.reward);
-                    gameMap.enemies.remove(currentEnemy);
+                case enemyCombatTurn:
+                    if (combatTimer >= combatDelay) {
+                        previousTurn = enemyCombatTurn;
+                        // Turno del enemigo
+                        player.hp -= Math.max(1, currentEnemy.damage - player.armor);
+                        ui.addMessage("El enemigo te atacó!");
+                        combatTimer = 0;
+                        combatTurn = combatDelay;
+                        messageTimer = 0;
+                    }
+                    break;
+            }
 
-                    // Finaliza combate
-                    currentEnemy = null;
-                    gameState = statePlay;
-                    return;
-                }
-
-                // Turno del enemigo
-                player.hp -= Math.max(1, currentEnemy.damage - player.armor);
-                ui.addMessage("¡El enemigo te atacó!");
-
-                if (player.hp <= 0) {
-                    ui.addMessage("¡Has sido derrotado!");
-                    // Aquí podrías cambiar a un estado de GAME_OVER, si lo tienes
-                    currentEnemy = null;
-                    gameState = stateCombat;
-                }
+            // Verificar si el jugador murió después del ataque enemigo
+            if (player.hp <= 0) {
+                ui.addMessage("Has sido derrotado!");
+                currentEnemy = null;
+                //gameState = stateGameOver; // Cambia a tu estado de GAME_OVER si existe
             }
         }
 

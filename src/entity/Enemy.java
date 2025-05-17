@@ -44,7 +44,7 @@ public class Enemy extends Entity {
         this.level = lvl;
         this.hpMax = 5 + (10*(lvl-1));
         this.hp = hpMax;
-        this.damage = 3 + (5*(lvl-1));
+        this.damage = 1 + (5*(lvl-1));
         this.reward = 2 + (2*(lvl-1)); //Experiencia
     }
 
@@ -83,15 +83,6 @@ public class Enemy extends Entity {
         }
 
         gp.cChecker.checkTile(this);
-
-        if (gp.gameState == statePlay && !this.isDead() && gp.currentEnemy == null) {
-            if (this.hitBox.intersects(gp.player.hitBox)) {
-                gp.currentEnemy = this;
-                gp.gameState = stateCombat;
-                gp.combatTimer = 0;
-            }
-        }
-
 
 
         if (!collisionOn) {
