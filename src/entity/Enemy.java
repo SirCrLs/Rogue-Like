@@ -6,7 +6,6 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.util.Random;
 
 import static main.GamePanel.stateCombat;
 import static main.GamePanel.statePlay;
@@ -27,7 +26,8 @@ public class Enemy extends Entity {
         this.y = y;
         this.patrolArea = patrolArea;
         this.speed = 2;
-        this.hitBox = new Rectangle(4, 8, 8, 8);
+        this.hitBoxWalls = new Rectangle(4, 8, 8, 8);
+        this.hitBox = new Rectangle(x*gp.tileSize,y*gp.tileSize,16,16);
 
         setDefaultValues(1);
 
@@ -63,6 +63,8 @@ public class Enemy extends Entity {
      */
     public void update() {
         if (gp.gameState != statePlay) return;
+
+        updateHitbox();
         if (moveCooldown > 0) {
             moveCooldown--;
             return;

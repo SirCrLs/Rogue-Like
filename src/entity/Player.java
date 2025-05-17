@@ -2,16 +2,13 @@ package entity;
 
 import main.GamePanel;
 import main.KeyHandler;
-import map.Map;
 import map.Room;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 
-import static main.GamePanel.stateCombat;
 import static main.GamePanel.statePlay;
 
 public class Player extends Entity {
@@ -25,8 +22,6 @@ public class Player extends Entity {
         this.gp = gp;
         this.keyH = keyH;
 
-        hitBox = new Rectangle(7,8,4,8);
-
         getPlayerImage();
         setDefaultValues();
     }
@@ -36,6 +31,8 @@ public class Player extends Entity {
         initialRoom = gp.gameMap.rooms.getFirst();
         x = initialRoom.centerX()* gp.tileSize;
         y = initialRoom.centerY()* gp.tileSize;
+        hitBoxWalls = new Rectangle(4,8,8,8);
+        hitBox = new Rectangle(x*gp.tileSize,y*gp.tileSize,16,16);
 
         level = 1;
         exp = 0;
@@ -64,7 +61,7 @@ public class Player extends Entity {
     }
 
     public Rectangle getHitBox() {
-        return new Rectangle(hitBox.x, hitBox.y, hitBox.width, hitBox.height);
+        return new Rectangle(hitBoxWalls.x, hitBoxWalls.y, hitBoxWalls.width, hitBoxWalls.height);
     }
 
     /**
@@ -98,6 +95,16 @@ public class Player extends Entity {
         gp.ui.addMessage("Level up!");
     }
 
+    public boolean isPlayerInRange() {
+        // Calcula distancia entre este enemigo y el jugador
+        float dx = this.x - gp.player.x;
+        float dy = this.y - gp.player.y;
+        double distance = Math.sqrt(dx*dx + dy*dy);
+
+        // Solo devuelve true si el jugador está lo suficientemente cerca
+        return distance < 2 * 16;
+    }
+
 
     /**
      * Capta cada accion que realiza el jugador para cambiar su posicion ademas
@@ -107,6 +114,8 @@ public class Player extends Entity {
         if (gp.gameState != statePlay) return;
         dy = 0;
         dx = 0;
+
+        updateHitbox();
 
         if (keyH.pressed){
             if (keyH.upPressed){
@@ -131,6 +140,8 @@ public class Player extends Entity {
                 x += dx;
                 y += dy;
             }
+
+
 
             collisionOn = false;
 

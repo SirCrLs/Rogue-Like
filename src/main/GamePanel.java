@@ -152,8 +152,24 @@ public class GamePanel extends JPanel implements Runnable {
         gameMap.drawMap(TileM,g2);
         for (Enemy e : gameMap.enemies) {
             e.draw(g2);
+            g2.setColor(Color.GREEN);
+            g2.drawRect(
+                    e.hitBox.x,
+                    e.hitBox.y,
+                    e.hitBox.width,
+                    e.hitBox.height
+            );
         }
         player.draw(g2);
+        g2.setColor(Color.RED);
+        g2.drawRect(
+                player.hitBox.x,
+                player.hitBox.y,
+                player.hitBox.width,
+                player.hitBox.height
+        );
+
+
         ui.draw(g2, player);
 
         g2.dispose();

@@ -25,7 +25,12 @@ public class Entity {
     public int spriteCounter = 0;
     public int spriteNum = 0;
 
+    public Rectangle hitBoxWalls;
     public Rectangle hitBox;
     public boolean collisionOn=false;
 
+    public void updateHitbox(){
+        hitBox.x = x;
+        hitBox.y = y;
+    }
 }

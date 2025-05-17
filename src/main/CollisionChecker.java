@@ -18,10 +18,10 @@ public class CollisionChecker {
         entity.collisionOn = false;
 
         // 1. Checar colisión vertical
-        int entityLeftX = entity.x + entity.hitBox.x;
-        int entityRightX = entity.x + entity.hitBox.x + entity.hitBox.width;
-        int entityTopY = entity.y + entity.hitBox.y;
-        int entityBottomY = entity.y + entity.hitBox.y + entity.hitBox.height;
+        int entityLeftX = entity.x + entity.hitBoxWalls.x;
+        int entityRightX = entity.x + entity.hitBoxWalls.x + entity.hitBoxWalls.width;
+        int entityTopY = entity.y + entity.hitBoxWalls.y;
+        int entityBottomY = entity.y + entity.hitBoxWalls.y + entity.hitBoxWalls.height;
 
         int entityLeftCol = entityLeftX / gp.tileSize;
         int entityRightCol = entityRightX / gp.tileSize;
