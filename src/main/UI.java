@@ -104,20 +104,46 @@ public void drawGameOver(Graphics g2) {
         }
 
         //HUD de mensajes
-        int msgX = gp.screenWidth - 350;
-        int msgY = y;
+        int msgX = gp.screenWidth - 350;  // Posición X inicial
+        int msgY = y;                     // Posición Y inicial
+        padding = 10;                 // Espacio interno del fondo
+        int maxTextWidth = 0;             // Para almacenar el ancho máximo del texto
+
+        //Calcular dimensiones
         Iterator<Message> iterator = messages.iterator();
+        while (iterator.hasNext()) {
+            Message m = iterator.next();
+            int textWidth = g2.getFontMetrics().stringWidth(m.text);
+            if (textWidth > maxTextWidth) {
+                maxTextWidth = textWidth;  // Actualizar ancho máximo
+            }
+        }
+        int bgHeight = messages.size() * 25 + padding * 2;
+        int bgWidth = maxTextWidth + padding * 2;
+
+        //Dibujar fondo
+        if (!messages.isEmpty()) {
+            g2.setColor(new Color(0, 0, 0, 50));
+            g2.fillRoundRect(msgX - padding, msgY - (bgHeight - 10), bgWidth, bgHeight, 10, 10);
+            // Borde blanco
+            g2.setColor(new Color(255,255,255,50));
+            g2.drawRoundRect(msgX - padding, msgY - (bgHeight - 10), bgWidth, bgHeight, 10, 10);
+        }
+
+// --- Paso 3: Dibujar mensajes ---
+        iterator = messages.iterator();
         while (iterator.hasNext()) {
             Message m = iterator.next();
             g2.setColor(m.color);
             g2.drawString(m.text, msgX, msgY);
-            msgY -= 25;
+            msgY -= 25;  // Espaciado entre mensajes
             m.timer--;
+            g2.setColor(Color.WHITE);
             if (m.timer <= 0) {
                 iterator.remove();
             }
-            g2.setColor(Color.WHITE);
         }
+        //gamover
         if (gp.gameState == gp.stateGameOver) {
             drawGameOver(g2);
         }
