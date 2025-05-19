@@ -12,6 +12,9 @@ import java.io.IOException;
 import static main.GamePanel.stateCombat;
 import static main.GamePanel.statePlay;
 
+/**
+ * Clase que recibira todo el input del usuario para controlarlo
+ */
 public class Player extends Entity {
     public int exp;
     public int expNextLevel;
@@ -94,16 +97,6 @@ public class Player extends Entity {
         armor += 1;
 
         gp.ui.addMessage("Level up!");
-    }
-
-    public boolean isPlayerInRange() {
-        // Calcula distancia entre este enemigo y el jugador
-        float dx = this.x - gp.player.x;
-        float dy = this.y - gp.player.y;
-        double distance = Math.sqrt(dx*dx + dy*dy);
-
-        // Solo devuelve true si el jugador está lo suficientemente cerca
-        return distance < 2 * 16;
     }
 
 

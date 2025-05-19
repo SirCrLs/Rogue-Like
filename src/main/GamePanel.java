@@ -9,6 +9,10 @@ import tile.TileManager;
 import javax.swing.JPanel;
 import java.awt.*;
 
+/**
+ * Clase en la que se inicializara todos los elementos necesarios para que el juego funcione,
+ * ademas de estar aqui el loop jugable principal
+ */
 public class GamePanel extends JPanel implements Runnable {
     //Ajustes de la pantalla
     final public int originalTileSize = 16; //16 x 16 pixeles
@@ -109,7 +113,8 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     /**
-     * Actualiza en cada tick de juego todas las entidades de un estado anterior al estado actual
+     * Actualiza en cada tick de juego todas las entidades de un estado anterior al estado actual,
+     * ademas de evaluar el estado del juego (Exploracion, combate o game over)
      */
     public void update() {
         if (gameState == stateGameOver) {

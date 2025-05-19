@@ -7,7 +7,6 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
-import static main.GamePanel.stateCombat;
 import static main.GamePanel.statePlay;
 
 public class Enemy extends Entity {
@@ -40,6 +39,11 @@ public class Enemy extends Entity {
         }
     }
 
+    /**
+     * @param lvl el nivel al que se inicializara la entidad
+     * @apiNote Inicializa las estadisticas iniciales de la entidad
+     * dependiendo del nivel dado
+     */
     public void setDefaultValues(int lvl) {
         this.level = lvl;
         this.hpMax = 5 + (10*(lvl-1));
@@ -107,6 +111,9 @@ public class Enemy extends Entity {
         }
     }
 
+    /**
+     * @param g2 Graficador que ilustrara el enemigo en pantalla
+     */
     public void draw(Graphics2D g2) {
         g2.drawImage(walkSprites[spriteIndex], x, y, gp.tileSize, gp.tileSize, null);
     }

@@ -42,10 +42,19 @@ public class UI {
     public void addMessage(String text) {
         messages.add(new Message(text));
     }
+
+    /**
+     * @param text texto String que se guardara como clase Mensaje
+     * @param color Color que se le asignara al mensaje cuando sea leido
+     */
     public void addMessage(String text, Color color) {
         messages.add(new Message(text, color));
     }
 
+    /**
+     * @param g2 EL Graphics que generara la imagen en la pantralla
+     * @apiNote Ilustra un gameover en pantalla hasta que el boton [R] sea presionado
+     */
 public void drawGameOver(Graphics g2) {
     // Game over
     g2.setColor(new Color(0, 0, 0, 150)); // Negro con 60% de opacidad
@@ -130,7 +139,6 @@ public void drawGameOver(Graphics g2) {
             g2.drawRoundRect(msgX - padding, msgY - (bgHeight - 10), bgWidth, bgHeight, 10, 10);
         }
 
-// --- Paso 3: Dibujar mensajes ---
         iterator = messages.iterator();
         while (iterator.hasNext()) {
             Message m = iterator.next();
