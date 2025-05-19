@@ -22,6 +22,7 @@ public class GamePanel extends JPanel implements Runnable {
 
     public static final int statePlay = 0;
     public static final int stateCombat = 1;
+    public static final int stateGameOver = 2;
     public static final int playerCombatTurn = 0;
     public static final int enemyCombatTurn = 1;
     public static final int combatDelay= 2;
@@ -105,8 +106,12 @@ public class GamePanel extends JPanel implements Runnable {
      * Actualiza en cada tick de juego todas las entidades de un estado anterior al estado actual
      */
     public void update() {
-        //Combate
+        if (gameState == stateGameOver) {
 
+            return;
+        }
+
+        //Combate
         if (gameState == stateCombat && currentEnemy != null) {
             combatTimer++;
 
@@ -156,8 +161,7 @@ public class GamePanel extends JPanel implements Runnable {
             // Verificar si el jugador murió después del ataque enemigo
             if (player.hp <= 0) {
                 ui.addMessage("Has sido derrotado!");
-                currentEnemy = null;
-                //gameState = stateGameOver; // Cambia a tu estado de GAME_OVER si existe
+                gameState = stateGameOver; // Cambia a tu estado de GAME_OVER si existe
             }
         }
 

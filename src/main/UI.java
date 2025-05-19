@@ -6,6 +6,8 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import static main.GamePanel.stateCombat;
+
 public class UI {
     GamePanel gp;
     Font fuente20;
@@ -35,6 +37,8 @@ public class UI {
         messages.add(new Message(text));
     }
 
+
+
     /**
      * @param g2 El graficador que ilustra el UI
      * @param player Clase jugador
@@ -42,19 +46,37 @@ public class UI {
      * y algunos datos extras
      */
     public void draw(Graphics2D g2, Player player) {
+        Color bgColor = new Color(20, 20, 20, 128);
+        int x = 15;
+        int y = gp.screenHeight - 15;
+        // Fondo
+        int padding = 10;
+        int width = 510;
+        int height = 40;
+        g2.setColor(bgColor);
+        g2.fillRoundRect(x - padding/2, y - height + padding/2, width, height, 10, 10);
+
         g2.setFont(fuente10);
         g2.setColor(Color.WHITE);
 
         g2.drawString("Seed: " + gp.gameMap.getSeed(), 10, 20);
         g2.setFont(fuente20);
 
-        int x = 15;
-        int y = gp.screenHeight - 15;
+
         //HUD del jugador
-        g2.drawString("Level: " + player.level, x, y);
-        g2.drawString("HP: " + player.hp + "/" + player.hpMax, x + 120, y);
-        g2.drawString("Damage: " + player.damage, x + 270, y);
-        g2.drawString("Armor: " + player.armor, x + 400, y);
+        g2.drawString("Level: " + player.level, x, y-20);
+        g2.drawString("Damage: " + player.damage, x, y);
+        g2.drawString("Armor: " + player.armor, x + 120, y);
+        g2.drawString("HP: " + player.hp + "/" + player.hpMax, x + 400, y);
+
+        if (gp.gameState == stateCombat){
+            g2.setColor(Color.RED);
+            y -= 20;
+            x += 200;
+            g2.drawString("Slime Level: " + gp.currentEnemy.level, x, y);
+            g2.drawString("HP: " + gp.currentEnemy.hp + "/" + gp.currentEnemy.hpMax, x + 200, y);
+            g2.setColor(Color.WHITE);
+        }
 
         //HUD de mensajes
         int msgX = gp.screenWidth - 350;
