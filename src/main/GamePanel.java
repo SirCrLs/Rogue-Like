@@ -102,14 +102,25 @@ public class GamePanel extends JPanel implements Runnable {
             }
     }
 
+    private void resetGame(){
+
+    }
+
     /**
      * Actualiza en cada tick de juego todas las entidades de un estado anterior al estado actual
      */
     public void update() {
         if (gameState == stateGameOver) {
-
-            return;
+            if (KeyH.RPressed) {
+                resetGame(); // Método para reiniciar
+                gameState = statePlay;
+            }
         }
+        //Exploracion
+        for (Enemy e : gameMap.enemies) {
+            e.update();
+        }
+        player.update();
 
         //Combate
         if (gameState == stateCombat && currentEnemy != null) {
@@ -166,11 +177,6 @@ public class GamePanel extends JPanel implements Runnable {
         }
 
 
-        //Exploracion
-        player.update();
-        for (Enemy e : gameMap.enemies) {
-            e.update();
-        }
 
     }
 

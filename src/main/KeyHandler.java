@@ -9,7 +9,7 @@ import java.awt.event.KeyListener;
  */
 //La clase que acepta los inputs de teclas de los jugadores
 public class KeyHandler implements KeyListener {
-    public boolean upPressed, downPressed, leftPressed, rightPressed,pressed;
+    public boolean upPressed, downPressed, leftPressed, rightPressed,pressed, RPressed;
 
     @Override
     public void keyTyped(KeyEvent e) {
@@ -30,6 +30,9 @@ public class KeyHandler implements KeyListener {
         }
         if (keyCode == KeyEvent.VK_D) {
             rightPressed = true;
+        }
+        if (keyCode == KeyEvent.VK_R) {
+            RPressed = true;
         }
     }
 

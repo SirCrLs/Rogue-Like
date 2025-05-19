@@ -37,7 +37,26 @@ public class UI {
         messages.add(new Message(text));
     }
 
+public void drawGameOver(Graphics g2) {
+    // Fondo semi-transparente
+    g2.setColor(new Color(0, 0, 0, 150)); // Negro con 60% de opacidad
+    g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
 
+    // Texto "GAME OVER"
+    g2.setColor(Color.RED);
+    String text = "GAME OVER";
+    int textWidth = g2.getFontMetrics().stringWidth(text);
+
+    // Centrar el texto en pantalla
+    g2.drawString(text, (gp.screenWidth - textWidth) / 2, gp.screenHeight / 2);
+
+    // Mensaje adicional
+    g2.setFont(new Font("Arial", Font.PLAIN, 20));
+    g2.setColor(Color.WHITE);
+    String restartText = "Presiona [R] para reiniciar";
+    int restartWidth = g2.getFontMetrics().stringWidth(restartText);
+    g2.drawString(restartText, (gp.screenWidth - restartWidth) / 2, gp.screenHeight / 2 + 50);
+}
 
     /**
      * @param g2 El graficador que ilustra el UI
@@ -90,6 +109,9 @@ public class UI {
             if (m.timer <= 0) {
                 iterator.remove();
             }
+        }
+        if (gp.gameState == gp.stateGameOver) {
+            drawGameOver(g2);
         }
     }
 }
