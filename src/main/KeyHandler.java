@@ -51,7 +51,10 @@ public class KeyHandler implements KeyListener {
         if (keyCode == KeyEvent.VK_D) {
             rightPressed = false;
         }
-        if (!upPressed && !downPressed && !leftPressed && !rightPressed) {
+        if (keyCode == KeyEvent.VK_R) {
+            RPressed = false;
+        }
+        if (!upPressed && !downPressed && !leftPressed && !rightPressed && !RPressed) {
             pressed = false;
         }
     }

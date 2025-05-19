@@ -44,7 +44,7 @@ public class Enemy extends Entity {
         this.level = lvl;
         this.hpMax = 5 + (10*(lvl-1));
         this.hp = hpMax;
-        this.damage = 1 + (5*(lvl-1));
+        this.damage = 2 + (5*(lvl-1));
         this.reward = 2 + (2*(lvl-1)); //Experiencia
     }
 

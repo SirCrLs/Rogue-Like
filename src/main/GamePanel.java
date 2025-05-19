@@ -103,7 +103,9 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     private void resetGame(){
-
+        gameMap = new Map(this);
+        player = new Player(this, KeyH);
+        currentEnemy = null;
     }
 
     /**
@@ -148,6 +150,7 @@ public class GamePanel extends JPanel implements Runnable {
                             gameMap.enemies.remove(currentEnemy);
                             currentEnemy = null;
                             gameState = statePlay;
+                            previousTurn = enemyCombatTurn;
                         } else if(previousTurn == playerCombatTurn) {
                             combatTurn = enemyCombatTurn;
                         } else{
