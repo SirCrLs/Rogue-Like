@@ -16,9 +16,15 @@ public class UI {
     private class Message {
         String text;
         int timer;//Duracion del mensaje
+        Color color;
         public Message(String text) {
             this.text = text;
             this.timer = 300;
+        }
+        public Message(String text, Color color) {
+            this.text = text;
+            this.timer = 300;
+            this.color = color;
         }
     }
 
@@ -36,22 +42,21 @@ public class UI {
     public void addMessage(String text) {
         messages.add(new Message(text));
     }
+    public void addMessage(String text, Color color) {
+        messages.add(new Message(text, color));
+    }
 
 public void drawGameOver(Graphics g2) {
-    // Fondo semi-transparente
+    // Game over
     g2.setColor(new Color(0, 0, 0, 150)); // Negro con 60% de opacidad
     g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
-
-    // Texto "GAME OVER"
     g2.setColor(Color.RED);
     String text = "GAME OVER";
     int textWidth = g2.getFontMetrics().stringWidth(text);
-
-    // Centrar el texto en pantalla
     g2.drawString(text, (gp.screenWidth - textWidth) / 2, gp.screenHeight / 2);
 
-    // Mensaje adicional
-    g2.setFont(new Font("Arial", Font.PLAIN, 20));
+    // Mensaje de reinicio
+    g2.setFont(new Font("Consolas", Font.PLAIN, 20));
     g2.setColor(Color.WHITE);
     String restartText = "Presiona [R] para reiniciar";
     int restartWidth = g2.getFontMetrics().stringWidth(restartText);
@@ -90,10 +95,11 @@ public void drawGameOver(Graphics g2) {
 
         if (gp.gameState == stateCombat){
             g2.setColor(Color.RED);
-            y -= 20;
-            x += 200;
-            g2.drawString("Slime Level: " + gp.currentEnemy.level, x, y);
-            g2.drawString("HP: " + gp.currentEnemy.hp + "/" + gp.currentEnemy.hpMax, x + 200, y);
+            int ey, ex;
+            ey = y-20;
+            ex = x+200;
+            g2.drawString("Slime Level: " + gp.currentEnemy.level, ex, ey);
+            g2.drawString("HP: " + gp.currentEnemy.hp + "/" + gp.currentEnemy.hpMax, ex + 200, ey);
             g2.setColor(Color.WHITE);
         }
 
@@ -103,12 +109,14 @@ public void drawGameOver(Graphics g2) {
         Iterator<Message> iterator = messages.iterator();
         while (iterator.hasNext()) {
             Message m = iterator.next();
+            g2.setColor(m.color);
             g2.drawString(m.text, msgX, msgY);
             msgY -= 25;
             m.timer--;
             if (m.timer <= 0) {
                 iterator.remove();
             }
+            g2.setColor(Color.WHITE);
         }
         if (gp.gameState == gp.stateGameOver) {
             drawGameOver(g2);

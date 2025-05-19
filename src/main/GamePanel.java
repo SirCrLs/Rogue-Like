@@ -134,7 +134,7 @@ public class GamePanel extends JPanel implements Runnable {
                         previousTurn = playerCombatTurn;
                         // Turno del jugador
                         currentEnemy.hp -= Math.max(1, player.damage);
-                        ui.addMessage("Atacaste al enemigo!");
+                        ui.addMessage("Attacked an enemy!",Color.YELLOW);
                         combatTimer = 0;
                         combatTurn = combatDelay;
                         messageTimer = 0;
@@ -145,7 +145,7 @@ public class GamePanel extends JPanel implements Runnable {
                     messageTimer++;
                     if (messageTimer >= messageDelay) {
                         if (currentEnemy.hp <= 0) {
-                            ui.addMessage("Enemigo derrotado!");
+                            ui.addMessage("Enemy Defeated!");
                             player.gainExperience(currentEnemy.reward);
                             gameMap.enemies.remove(currentEnemy);
                             currentEnemy = null;
@@ -164,7 +164,7 @@ public class GamePanel extends JPanel implements Runnable {
                         previousTurn = enemyCombatTurn;
                         // Turno del enemigo
                         player.hp -= Math.max(1, currentEnemy.damage - player.armor);
-                        ui.addMessage("El enemigo te atacó!");
+                        ui.addMessage("Enemy attacked you!",Color.RED);
                         combatTimer = 0;
                         combatTurn = combatDelay;
                         messageTimer = 0;
@@ -174,7 +174,7 @@ public class GamePanel extends JPanel implements Runnable {
 
             // Verificar si el jugador murió después del ataque enemigo
             if (player.hp <= 0) {
-                ui.addMessage("Has sido derrotado!");
+                ui.addMessage("You died!");
                 gameState = stateGameOver; // Cambia a tu estado de GAME_OVER si existe
             }
         }
