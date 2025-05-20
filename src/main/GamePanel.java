@@ -30,6 +30,7 @@ public class GamePanel extends JPanel implements Runnable {
     public static final int playerCombatTurn = 0;
     public static final int enemyCombatTurn = 1;
     public static final int combatDelay= 2;
+    public int mapLevel = 1;
     public int previousTurn;
     public int combatTurn = playerCombatTurn;
     public int combatTimer= 60;
@@ -38,6 +39,7 @@ public class GamePanel extends JPanel implements Runnable {
     private int messageDelay = 30;
     private int messageTimer = 0;
     public Enemy currentEnemy;
+    public InteractiveObject currentObject;
 
 
     public int gameState = statePlay;
@@ -48,7 +50,7 @@ public class GamePanel extends JPanel implements Runnable {
     public TileManager TileM = new TileManager(this);
     public CollisionChecker cChecker = new CollisionChecker(this);
     KeyHandler KeyH = new KeyHandler();
-    public Map gameMap = new Map(this);
+    public Map gameMap = new Map(1,this);
     Thread gameThread;
 
     //Entidades
@@ -107,7 +109,7 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     private void resetGame(){
-        gameMap = new Map(this);
+        gameMap = new Map(1,this);
         player = new Player(this, KeyH);
         currentEnemy = null;
     }
@@ -128,6 +130,12 @@ public class GamePanel extends JPanel implements Runnable {
             e.update();
         }
         player.update();
+
+        if (currentObject != null) {
+            currentObject.trigger();
+            gameMap.interactiveObjects.remove(currentObject);
+            currentObject = null;
+        }
 
         //Combate
         if (gameState == stateCombat && currentEnemy != null) {

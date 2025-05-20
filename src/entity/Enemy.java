@@ -19,7 +19,7 @@ public class Enemy extends Entity {
     int spriteIndex = 0;
     int spriteCounter = 0;
 
-    public Enemy(int x, int y, Rectangle patrolArea, GamePanel gp) {
+    public Enemy(int x, int y, Rectangle patrolArea, GamePanel gp,int lvl) {
         this.gp = gp;
         this.x = x;
         this.y = y;
@@ -28,7 +28,7 @@ public class Enemy extends Entity {
         this.hitBoxWalls = new Rectangle(4, 8, 8, 8);
         this.hitBox = new Rectangle(x*gp.tileSize,y*gp.tileSize,16,16);
 
-        setDefaultValues(1);
+        setDefaultValues(lvl);
 
         walkSprites = new BufferedImage[2];
         try {
@@ -46,9 +46,9 @@ public class Enemy extends Entity {
      */
     public void setDefaultValues(int lvl) {
         this.level = lvl;
-        this.hpMax = 5 + (10*(lvl-1));
+        this.hpMax = 5 + (7*(lvl-1));
         this.hp = hpMax;
-        this.damage = 2 + (5*(lvl-1));
+        this.damage = 2 + (3*(lvl-1));
         this.reward = 2 + (2*(lvl-1)); //Experiencia
     }
 

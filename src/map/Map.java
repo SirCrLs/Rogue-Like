@@ -4,6 +4,7 @@ import entity.Enemy;
 import main.GamePanel;
 import object.HealthPack;
 import object.InteractiveObject;
+import object.Orb;
 import tile.TileManager;
 
 import java.awt.*;
@@ -18,24 +19,26 @@ public class Map {
     public ArrayList<Enemy> enemies = new ArrayList<>();
     public List<InteractiveObject> interactiveObjects = new ArrayList<>();
     private long seed;
+    private int mapLevel;
     public int[][] map;
     private int width;
     private int height;
     GamePanel gp;
 
     //Constructor con semilla
-    public Map(GamePanel gp, long seed) {
+    public Map(int lvl, GamePanel gp, long seed) {
         this.gp = gp;
         this.width = gp.maxScreenCol;
         this.height = gp.maxScreenRow;
         this.seed = seed;
+        this.mapLevel = lvl;
         random = new Random(seed);
         map = new int[width][height];
         generateMap();
     }
     //Constructor sin semilla
-    public Map(GamePanel gp) {
-        this(gp, new Random().nextLong());
+    public Map(int lvl,GamePanel gp) {
+        this(lvl,gp, new Random().nextLong());
     }
 
     /**
@@ -279,7 +282,7 @@ public class Map {
                         room.height * gp.tileSize
                 );
 
-                Enemy e = new Enemy(ex * gp.tileSize, ey * gp.tileSize, patrolArea,gp);
+                Enemy e = new Enemy(ex * gp.tileSize, ey * gp.tileSize, patrolArea,gp,mapLevel);
                 enemies.add(e);
             }
         }
@@ -297,6 +300,13 @@ public class Map {
                 interactiveObjects.add(hp);
             }
         }
+        placeOrb();
+    }
+
+    public void placeOrb(){
+        Room finalRoom = rooms.getLast();
+        Orb orb = new Orb(finalRoom.centerX()*gp.tileSize, finalRoom.centerY()*gp.tileSize, gp);
+        interactiveObjects.add(orb);
     }
 
     /**

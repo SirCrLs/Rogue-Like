@@ -3,6 +3,7 @@ package entity;
 import main.GamePanel;
 import main.KeyHandler;
 import map.Room;
+import object.InteractiveObject;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -136,6 +137,12 @@ public class Player extends Entity {
                         gp.gameState = stateCombat;
                         gp.combatTimer = 0;
                     }
+                }
+            }
+
+            for (InteractiveObject obj : gp.gameMap.interactiveObjects) {
+                if (!obj.triggered && obj.hitBox.intersects(this.hitBox)) {
+                    gp.currentObject = obj;
                 }
             }
 

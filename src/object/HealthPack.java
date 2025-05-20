@@ -20,7 +20,9 @@ public class HealthPack extends InteractiveObject{
 
     @Override
     public void trigger() {
-
+        triggered = true;
+        gp.ui.addMessage("You healed +"+ (gp.player.hpMax-gp.player.hp)+" HP",Color.WHITE);
+        gp.player.hp = gp.player.hpMax;
     }
 
     /**
