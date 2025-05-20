@@ -29,6 +29,9 @@ public class Entity {
     public Rectangle hitBox;
     public boolean collisionOn=false;
 
+    /**
+     * Actualiza la posicion de la hitbox a la posicion de la entidad
+     */
     public void updateHitbox(){
         hitBox.x = x;
         hitBox.y = y;

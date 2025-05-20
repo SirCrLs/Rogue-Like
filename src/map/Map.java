@@ -2,6 +2,8 @@ package map;
 
 import entity.Enemy;
 import main.GamePanel;
+import object.HealthPack;
+import object.InteractiveObject;
 import tile.TileManager;
 
 import java.awt.*;
@@ -14,6 +16,7 @@ public class Map {
     public Random random;
     public ArrayList<Room> rooms = new ArrayList<>();
     public ArrayList<Enemy> enemies = new ArrayList<>();
+    public List<InteractiveObject> interactiveObjects = new ArrayList<>();
     private long seed;
     public int[][] map;
     private int width;
@@ -57,6 +60,7 @@ public class Map {
         connectRoomsWithMST();
         placeWallsAround();
         spawnEnemies();
+        generateObjects();
     }
 
     /**
@@ -254,7 +258,7 @@ public class Map {
             return 4; // Pared abajo
         }
 
-        return -1; // No se encuentra ninguna celda adyacente válida
+        return -1; // No se encuentra ninguna celda adyacente
     }
 
     /**
@@ -276,12 +280,24 @@ public class Map {
                 );
 
                 Enemy e = new Enemy(ex * gp.tileSize, ey * gp.tileSize, patrolArea,gp);
-                enemies.add(e); // Asegúrate de tener acceso a la lista `enemies`
+                enemies.add(e);
             }
         }
     }
 
+    public void generateObjects(){
+        for (Room room : rooms) {
+            int objectCount =  (int)(Math.random() * 2);
 
+            for (int i = 0; i < objectCount; i++) {
+                int ox = room.x +1+ (int)(Math.random() * (room.width -2));
+                int oy = room.y +1+ (int)(Math.random() * (room.height- 2));
+
+                HealthPack hp = new HealthPack(ox*gp.tileSize,oy*gp.tileSize,gp);
+                interactiveObjects.add(hp);
+            }
+        }
+    }
 
     /**
      * Dibuja el mapa en pantalla.

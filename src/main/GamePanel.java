@@ -3,7 +3,7 @@ package main;
 import entity.Enemy;
 import entity.Player;
 import map.Map;
-import object.SuperObject;
+import object.InteractiveObject;
 import tile.TileManager;
 
 import javax.swing.JPanel;
@@ -33,6 +33,7 @@ public class GamePanel extends JPanel implements Runnable {
     public int previousTurn;
     public int combatTurn = playerCombatTurn;
     public int combatTimer= 60;
+    public TileManager tileM;
 
     private int messageDelay = 30;
     private int messageTimer = 0;
@@ -49,7 +50,6 @@ public class GamePanel extends JPanel implements Runnable {
     KeyHandler KeyH = new KeyHandler();
     public Map gameMap = new Map(this);
     Thread gameThread;
-    SuperObject obj[] = new SuperObject[10];
 
     //Entidades
     public Player player = new Player(this, KeyH);
@@ -194,6 +194,10 @@ public class GamePanel extends JPanel implements Runnable {
 
 
         gameMap.drawMap(TileM,g2);
+
+        for (InteractiveObject i : gameMap.interactiveObjects) {
+            i.draw(g2);
+        }
         for (Enemy e : gameMap.enemies) {
             e.draw(g2);
             g2.setColor(Color.GREEN);
