@@ -94,7 +94,7 @@ public class Player extends Entity {
         hpMax += 10;
         hp = hpMax; // Curarse al subir de nivel
 
-        damage += 2;
+        damage += 3;
         armor += 1;
 
         gp.ui.addMessage("Level up!");

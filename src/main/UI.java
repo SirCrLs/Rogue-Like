@@ -55,22 +55,22 @@ public class UI {
      * @param g2 EL Graphics que generara la imagen en la pantralla
      * @apiNote Ilustra un gameover en pantalla hasta que el boton [R] sea presionado
      */
-public void drawGameOver(Graphics g2) {
-    // Game over
-    g2.setColor(new Color(0, 0, 0, 150)); // Negro con 60% de opacidad
-    g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
-    g2.setColor(Color.RED);
-    String text = "GAME OVER";
-    int textWidth = g2.getFontMetrics().stringWidth(text);
-    g2.drawString(text, (gp.screenWidth - textWidth) / 2, gp.screenHeight / 2);
+    public void drawGameOver(Graphics g2) {
+        // Game over
+        g2.setColor(new Color(0, 0, 0, 150)); // Negro con 60% de opacidad
+        g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
+        g2.setColor(Color.RED);
+        String text = "GAME OVER";
+        int textWidth = g2.getFontMetrics().stringWidth(text);
+        g2.drawString(text, (gp.screenWidth - textWidth) / 2, gp.screenHeight / 2);
 
-    // Mensaje de reinicio
-    g2.setFont(new Font("Consolas", Font.PLAIN, 20));
-    g2.setColor(Color.WHITE);
-    String restartText = "Presiona [R] para reiniciar";
-    int restartWidth = g2.getFontMetrics().stringWidth(restartText);
-    g2.drawString(restartText, (gp.screenWidth - restartWidth) / 2, gp.screenHeight / 2 + 50);
-}
+        // Mensaje de reinicio
+        g2.setFont(new Font("Consolas", Font.PLAIN, 20));
+        g2.setColor(Color.WHITE);
+        String restartText = "Presiona [R] para reiniciar";
+        int restartWidth = g2.getFontMetrics().stringWidth(restartText);
+        g2.drawString(restartText, (gp.screenWidth - restartWidth) / 2, gp.screenHeight / 2 + 50);
+    }
 
     /**
      * @param g2 El graficador que ilustra el UI
@@ -93,6 +93,7 @@ public void drawGameOver(Graphics g2) {
         g2.setColor(Color.WHITE);
 
         g2.drawString("Seed: " + gp.gameMap.getSeed(), 10, 20);
+        g2.drawString("Map Level: " + gp.mapLevel, 10, 40);
         g2.setFont(fuente20);
 
 

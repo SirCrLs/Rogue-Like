@@ -109,7 +109,8 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     private void resetGame(){
-        gameMap = new Map(1,this);
+        mapLevel = 1;
+        gameMap = new Map(mapLevel,this);
         player = new Player(this, KeyH);
         currentEnemy = null;
     }
@@ -177,7 +178,7 @@ public class GamePanel extends JPanel implements Runnable {
                         previousTurn = enemyCombatTurn;
                         // Turno del enemigo
                         player.hp -= Math.max(1, currentEnemy.damage - player.armor);
-                        ui.addMessage("Enemy attacked you: -"+currentEnemy.damage+" HP!",Color.RED);
+                        ui.addMessage("Enemy attacked you: -"+(currentEnemy.damage-player.armor)+" HP!",Color.RED);
                         combatTimer = 0;
                         combatTurn = combatDelay;
                         messageTimer = 0;
@@ -185,10 +186,9 @@ public class GamePanel extends JPanel implements Runnable {
                     break;
             }
 
-            // Verificar si el jugador murió después del ataque enemigo
             if (player.hp <= 0) {
                 ui.addMessage("You died!");
-                gameState = stateGameOver; // Cambia a tu estado de GAME_OVER si existe
+                gameState = stateGameOver;
             }
         }
 
