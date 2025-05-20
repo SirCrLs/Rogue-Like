@@ -2,10 +2,7 @@ package map;
 
 import entity.Enemy;
 import main.GamePanel;
-import object.HealthPack;
-import object.InteractiveObject;
-import object.Knife;
-import object.Orb;
+import object.*;
 import tile.TileManager;
 
 import java.awt.*;
@@ -296,7 +293,7 @@ public class Map {
             for (int i = 0; i < objectCount; i++) {
                 int ox = room.x +1+ (int)(Math.random() * (room.width -2));
                 int oy = room.y +1+ (int)(Math.random() * (room.height- 2));
-                int op = (int)(Math.random() * 2) + 1;
+                int op = (int)(Math.random() * 3) + 1;
                 switch (op) {
                     case 1:
                         HealthPack hp = new HealthPack(ox*gp.tileSize,oy*gp.tileSize,gp);
@@ -305,6 +302,10 @@ public class Map {
                     case 2:
                         Knife knf = new Knife(ox*gp.tileSize,oy*gp.tileSize,gp);
                         interactiveObjects.add(knf);
+                        break;
+                    case 3:
+                        Shield sh = new Shield(ox*gp.tileSize,oy*gp.tileSize,gp);
+                        interactiveObjects.add(sh);
                         break;
                 }
 

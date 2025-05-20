@@ -177,8 +177,12 @@ public class GamePanel extends JPanel implements Runnable {
                     if (combatTimer >= combatDelay) {
                         previousTurn = enemyCombatTurn;
                         // Turno del enemigo
-                        player.hp -= Math.max(1, currentEnemy.damage - player.armor);
-                        ui.addMessage("Enemy attacked you: -"+(currentEnemy.damage-player.armor)+" HP!",Color.RED);
+                        int damage = currentEnemy.damage - player.armor;
+                        if (damage <= 0) {
+                            damage = 1;
+                        }
+                        player.hp -= damage;
+                        ui.addMessage("Enemy attacked you: -"+(damage)+" HP!",Color.RED);
                         combatTimer = 0;
                         combatTurn = combatDelay;
                         messageTimer = 0;
@@ -208,22 +212,8 @@ public class GamePanel extends JPanel implements Runnable {
         }
         for (Enemy e : gameMap.enemies) {
             e.draw(g2);
-            g2.setColor(Color.GREEN);
-            g2.drawRect(
-                    e.hitBox.x,
-                    e.hitBox.y,
-                    e.hitBox.width,
-                    e.hitBox.height
-            );
         }
         player.draw(g2);
-        g2.setColor(Color.RED);
-        g2.drawRect(
-                player.hitBox.x,
-                player.hitBox.y,
-                player.hitBox.width,
-                player.hitBox.height
-        );
 
 
         ui.draw(g2, player);
