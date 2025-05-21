@@ -2,17 +2,20 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import entity.Player;
 import main.GamePanel;
+import main.KeyHandler;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class PlayerTest {
     private Player player;
+    private KeyHandler kh;
     private GamePanel gp;
 
     @BeforeEach
     public void setup() {
         gp = new  GamePanel();
-        player = new Player(gp,null);
+        kh = new KeyHandler();
+        player = new Player(gp,kh);
     }
 
     @Test
