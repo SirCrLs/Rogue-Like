@@ -17,12 +17,11 @@ public class CollisionChecker {
     public void checkTile(Entity entity){
         entity.collisionOn = false;
 
-        // 1. Checar colisión vertical
+
         int entityLeftX = entity.x + entity.hitBoxWalls.x;
         int entityRightX = entity.x + entity.hitBoxWalls.x + entity.hitBoxWalls.width;
         int entityTopY = entity.y + entity.hitBoxWalls.y;
         int entityBottomY = entity.y + entity.hitBoxWalls.y + entity.hitBoxWalls.height;
-
         int entityLeftCol = entityLeftX / gp.tileSize;
         int entityRightCol = entityRightX / gp.tileSize;
         int entityTopRow = entityTopY / gp.tileSize;
@@ -30,7 +29,7 @@ public class CollisionChecker {
 
         int tileNum1, tileNum2;
 
-        // Verificación vertical
+
         if (entity.dy < 0) { // arriba
             int nextTopRow = (entityTopY + entity.dy) / gp.tileSize;
             tileNum1 = gp.gameMap.map[entityLeftCol][nextTopRow];
@@ -47,7 +46,7 @@ public class CollisionChecker {
             }
         }
 
-        // Verificación horizontal
+
         if (entity.dx < 0) { // izquierda
             int nextLeftCol = (entityLeftX + entity.dx) / gp.tileSize;
             tileNum1 = gp.gameMap.map[nextLeftCol][entityTopRow];

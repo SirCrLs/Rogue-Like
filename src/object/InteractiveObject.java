@@ -19,7 +19,15 @@ public abstract class InteractiveObject {
         hitBox = new Rectangle(x, y, gp.tileSize, gp.tileSize);
     }
 
+    /**
+     * Ejecuta las acciones asignadas al objeto
+     */
     public abstract void trigger();
+
+    /**
+     * @param g2 Graficador
+     * @apiNote Ilustra el objeto en pantalla
+     */
     public abstract void draw(Graphics2D g2);
 }
 

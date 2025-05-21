@@ -52,24 +52,6 @@ public class Player extends Entity {
     }
 
     /**
-     * Este metodo carga las imagenes del jugador de la carpeta de recursos
-     */
-    public void getPlayerImage(){
-        try{
-            right1 = ImageIO.read(getClass().getResourceAsStream("/player/PlayerRight.png"));
-            right2 = ImageIO.read(getClass().getResourceAsStream("/player/PlayerRight1.png"));
-            left1 = ImageIO.read(getClass().getResourceAsStream("/player/PlayerLeft.png"));
-            left2 = ImageIO.read(getClass().getResourceAsStream("/player/PlayerLeft1.png"));
-        }catch (IOException e ){
-            e.printStackTrace();
-        }
-    }
-
-    public Rectangle getHitBox() {
-        return new Rectangle(hitBoxWalls.x, hitBoxWalls.y, hitBoxWalls.width, hitBoxWalls.height);
-    }
-
-    /**
      * @param amount Cantidad de experiencia que el jugador recibe
      * @apiNote si la cantidad de experiencia actual excede la experiencia
      * necesaria para subir de nivel, el jugador sube de nivel; levelUp()
@@ -94,12 +76,25 @@ public class Player extends Entity {
         hpMax += 10;
         hp = hpMax; // Curarse al subir de nivel
 
-        damage += 3;
+        damage += 2;
         armor += 1;
 
         gp.ui.addMessage("Level up!");
     }
 
+    /**
+     * Este metodo carga las imagenes del jugador de la carpeta de recursos
+     */
+    public void getPlayerImage(){
+        try{
+            right1 = ImageIO.read(getClass().getResourceAsStream("/player/PlayerRight.png"));
+            right2 = ImageIO.read(getClass().getResourceAsStream("/player/PlayerRight1.png"));
+            left1 = ImageIO.read(getClass().getResourceAsStream("/player/PlayerLeft.png"));
+            left2 = ImageIO.read(getClass().getResourceAsStream("/player/PlayerLeft1.png"));
+        }catch (IOException e ){
+            e.printStackTrace();
+        }
+    }
 
     /**
      * Capta cada accion que realiza el jugador para cambiar su posicion ademas

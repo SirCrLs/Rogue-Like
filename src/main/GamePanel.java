@@ -15,6 +15,8 @@ import java.awt.*;
  */
 public class GamePanel extends JPanel implements Runnable {
     //Ajustes de la pantalla
+    // ==== IMPORTANTE ====
+    // Cambiar los ajustes de pantalla podria provocar que el juego no funcione
     final public int originalTileSize = 16; //16 x 16 pixeles
     final public int scale = 1;
 

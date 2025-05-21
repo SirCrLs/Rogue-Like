@@ -148,28 +148,6 @@ public class Map {
     }
 
 
-    /**
-     * @param r1 primera habitacion
-     * @param r2 segunda habitacion.
-     * @apiNote Conecta 2 habitaciones en caminos creados horizontal o verticalmente
-     */
-    private void connectRooms(Room r1, Room r2) {
-        int x1 = r1.centerX();
-        int y1 = r1.centerY();
-        int x2 = r2.centerX();
-        int y2 = r2.centerY();
-
-        if (random.nextBoolean()) {
-            // Horizontal primero, luego vertical
-            carveHorizontalTunnel(x1, x2, y1);
-            carveVerticalTunnel(y1, y2, x2);
-        } else {
-            // Vertical primero, luego horizontal
-            carveVerticalTunnel(y1, y2, x1);
-            carveHorizontalTunnel(x1, x2, y2);
-        }
-    }
-
 
 
     /**
