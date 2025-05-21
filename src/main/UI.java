@@ -67,7 +67,7 @@ public class UI {
         // Mensaje de reinicio
         g2.setFont(new Font("Consolas", Font.PLAIN, 20));
         g2.setColor(Color.WHITE);
-        String restartText = "Presiona [R] para reiniciar";
+        String restartText = "Press [R] to restart";
         int restartWidth = g2.getFontMetrics().stringWidth(restartText);
         g2.drawString(restartText, (gp.screenWidth - restartWidth) / 2, gp.screenHeight / 2 + 50);
     }
